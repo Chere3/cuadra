@@ -1,0 +1,37 @@
+name: Bug
+description: Algo no cuadra, no concilia o se comporta distinto a lo documentado.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Nunca pegues un estado real.** Cambia nombres, cifras y referencias antes de compartir cualquier fragmento.
+  - type: input
+    id: banco
+    attributes:
+      label: Banco y producto afectado
+      placeholder: "Nu · tarjeta · diseño 2025"
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué pasó y qué esperabas
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Cómo reproducirlo
+      description: Comando exacto y, si aplica, un fragmento ficticio que lo dispare.
+      render: bash
+  - type: input
+    id: version
+    attributes:
+      label: Python y sistema operativo
+      placeholder: "3.12 · macOS 15"
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmo
+      options:
+        - label: Este reporte no contiene datos reales de ninguna persona.
+          required: true

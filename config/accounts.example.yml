@@ -1,0 +1,89 @@
+# Cuentas. Editable. 'mask' = SOLO últimos 4 dígitos (regla 50-privacidad).
+# Este archivo se excluye de Git (.gitignore) porque describe tus cuentas.
+accounts:
+  - id: bbva_debito
+    institution: bbva
+    name: BBVA Débito/Nómina
+    type: debito
+    currency: MXN
+    mask: "0000"
+    sign_convention: normal
+    active: true
+    # patrones que ayudan a identificar la cuenta desde el texto del estado
+    match_hints: ["BBVA", "Bancomer", "nómina"]
+
+  - id: bbva_tdc
+    institution: bbva
+    name: BBVA Tarjeta de Crédito
+    type: credito
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["BBVA", "Tarjeta de Crédito"]
+
+  - id: nu_debito
+    institution: nu
+    name: Nu Cuenta
+    type: debito
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["Nu", "Cuenta Nu"]
+
+  - id: nu_tdc
+    institution: nu
+    name: Nu Tarjeta de Crédito
+    type: credito
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["Nu", "Tarjeta de crédito Nu"]
+
+  - id: nu_prestamo
+    institution: nu
+    name: Nu Préstamo personal (Mac)
+    type: credito_personal
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["préstamo", "Mac"]
+
+  - id: uala_tdc
+    institution: uala
+    name: Ualá Tarjeta
+    type: credito
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["Ualá", "Uala"]
+
+  - id: vexi_tdc
+    institution: vexi
+    name: Vexi Amex
+    type: credito
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["Vexi", "Amex"]
+
+  - id: gbm_inversion
+    institution: gbm
+    name: GBM Inversión
+    type: inversion
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["GBM"]
+
+  - id: hsbc_debito
+    institution: hsbc
+    name: HSBC Débito
+    type: debito
+    currency: MXN
+    mask: "0000"
+    active: true
+    match_hints: ["HSBC"]
+
+# Grupos de cuentas propias entre las que suelen existir transferencias
+# (para vincular, no duplicar como gasto/ingreso).
+own_transfer_group: [bbva_debito, bbva_tdc, nu_debito, nu_tdc, uala_tdc, vexi_tdc, gbm_inversion, hsbc_debito]

@@ -1,0 +1,26 @@
+# Instituciones. Editable. NO contiene datos sensibles (solo nombres públicos).
+institutions:
+  - id: bbva
+    name: BBVA México
+    country: MX
+  - id: nu
+    name: Nu México
+    country: MX
+  - id: uala
+    name: Ualá
+    country: MX
+  - id: vexi
+    name: Vexi (Amex)
+    country: MX
+  - id: gbm
+    name: GBM
+    country: MX
+  - id: hsbc
+    name: HSBC México
+    country: MX
+  - id: paypal
+    name: PayPal
+    country: MX
+  - id: familiar
+    name: Préstamo familiar
+    country: MX

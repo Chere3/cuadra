@@ -1,0 +1,139 @@
+# Reglas de categorización APROBADAS (máxima prioridad). Copia este archivo a
+# config/merchant_rules.yml y ajústalo: el archivo real queda fuera de Git porque sus
+# patrones nacen de tus estados de cuenta. Si no existe, el sistema usa este ejemplo.
+#
+# scope: merchant | account | currency | description | global
+# op:    equals | contains | regex   (sobre `field`, normalizado a minúsculas; los acentos
+#        NO se pliegan: escríbelos explícitos en el regex, p. ej. "l[ií]mite")
+# priority: menor = gana antes. 40 = mecánica bancaria, 45 = específicas, 50 = genéricas.
+# Una corrección manual NO se vuelve regla sola (regla 24): se agrega aquí a propósito.
+rules:
+  # --- genéricas (comercios públicos) ---
+  - id: r_oxxo
+    scope: merchant
+    field: merchant_norm
+    op: contains
+    value: "oxxo"
+    category: "Gasto hormiga"
+    priority: 50
+  - id: r_super
+    scope: merchant
+    field: merchant_norm
+    op: regex
+    value: "(walmart|soriana|chedraui|la comer|superama|costco)"
+    category: "Supermercado"
+    priority: 50
+  - id: r_uber
+    scope: merchant
+    field: merchant_norm
+    op: regex
+    value: "(uber|didi|cabify)"
+    category: "Transporte/Gasolina"
+    priority: 50
+  - id: r_gas
+    scope: merchant
+    field: merchant_norm
+    op: regex
+    value: "(pemex|gasolin|shell|bp |mobil)"
+    category: "Transporte/Gasolina"
+    priority: 50
+  - id: r_streaming
+    scope: merchant
+    field: merchant_norm
+    op: regex
+    value: "(netflix|spotify|hbo|disney|amazon prime|youtube premium|apple.com/bill)"
+    category: "Suscripciones"
+    priority: 50
+  - id: r_rest
+    scope: merchant
+    field: merchant_norm
+    op: regex
+    value: "(rappi|didi food|uber eats|starbucks|restaurant)"
+    category: "Restaurantes/Delivery"
+    priority: 60
+
+  # --- mecánica bancaria (aplica a cualquier titular) ---
+  - id: r_nomina
+    scope: description
+    field: description_norm
+    op: contains
+    value: "nomina"
+    category: "Sueldo/Salario"
+    priority: 40
+  - id: r_comision
+    scope: description
+    field: description_norm
+    op: regex
+    value: "(comision|comisión|cuota anual|iva comision)"
+    category: "Comisiones/Intereses"
+    priority: 40
+  - id: r_interes
+    scope: description
+    field: description_norm
+    op: regex
+    value: "(interes|interés)"
+    category: "Comisiones/Intereses"
+    priority: 40
+
+  # --- Nu: rótulos propios de la app ---
+  - id: r_nu_pago_tdc
+    scope: description
+    field: description_norm
+    op: contains
+    value: "pago a tu tarjeta"
+    category: "Pago de tarjeta"
+    priority: 45
+  - id: r_nu_rendimiento
+    scope: description
+    field: description_norm
+    op: contains
+    value: "dinero generado"
+    category: "Intereses"
+    priority: 45
+  - id: r_nu_cajita
+    scope: description
+    field: description_norm
+    op: regex
+    value: "(dep[oó]sito en cajita|agregado a tu cajita)"
+    category: "Transferencia entre cuentas"
+    priority: 45
+  - id: r_nu_limite_saldo
+    scope: description
+    field: description_norm
+    op: regex
+    value: "l[ií]mite convertido en saldo"
+    category: "Transferencia entre cuentas"
+    priority: 45
+  # La disposición de saldo mueve dinero de la tarjeta a la cuenta: ambas tuyas.
+  - id: r_nu_disposicion
+    scope: description
+    field: description_norm
+    op: regex
+    value: "disposici[oó]n de saldo en cuenta"
+    category: "Transferencia entre cuentas"
+    priority: 45
+  # El IVA de la disposición no lleva la palabra "intereses", así que r_interes no lo alcanza.
+  - id: r_nu_iva
+    scope: description
+    field: description_norm
+    op: regex
+    value: "iva de disposici[oó]n"
+    category: "Comisiones/Intereses"
+    priority: 45
+
+  # --- otras instituciones ---
+  # `\b` a propósito: "gbm" con `contains` casaba dentro de otras palabras.
+  - id: r_gbm
+    scope: merchant
+    field: merchant_norm
+    op: regex
+    value: "\\bgbm\\b"
+    category: "Aportación a inversión"
+    priority: 45
+  - id: r_vexi
+    scope: merchant
+    field: merchant_norm
+    op: contains
+    value: "vexi"
+    category: "Pago de tarjeta"
+    priority: 45

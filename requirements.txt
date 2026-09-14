@@ -1,0 +1,13 @@
+# Dependencias del sistema de ingestión (instalar con: pip install -r requirements.txt)
+#
+# SOL-014: versiones con piso PARCHEADO y acotadas por rango mayor. Para despliegue
+# reproducible, generar un lock con hashes:  pip-compile --generate-hashes requirements.txt
+# y escanear vulnerabilidades:               pip-audit -r requirements.txt   (o: osv-scanner)
+#
+pyyaml>=6.0,<7
+openpyxl>=3.1,<4
+pdfplumber>=0.11,<1
+pytesseract>=0.3,<1        # requiere el binario 'tesseract' del sistema (brew install tesseract tesseract-lang)
+Pillow>=12.3.0,<13         # 12.3.0 corrige advisories por debajo de 12.3 (imágenes no confiables)
+jsonschema>=4.20,<5        # OBLIGATORIA: validación de esquema real (F-03/SOL-003), ya no opcional
+numpy>=1.26                # usado por el Monte Carlo offline del generador

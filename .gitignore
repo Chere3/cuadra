@@ -1,0 +1,38 @@
+# Datos financieros privados — NUNCA en Git (regla 50)
+data/
+statements/
+staging/
+excel/generated/
+excel/backups/
+excel/template/*.xlsx
+reports/
+logs/
+# Describe tus cuentas (mask y nombre del titular). Sí se versiona accounts.example.yml.
+# El comentario va en su PROPIA línea a propósito: en .gitignore el '#' solo abre comentario al
+# principio del renglón, así que un comentario al final convierte todo el texto en parte del patrón
+# y la regla deja de casar. Estuvo así y el archivo no quedaba ignorado.
+config/accounts.yml
+# Los respaldos con marca de tiempo llevan el mismo contenido y el patrón de arriba no los alcanza.
+config/accounts.yml.bak-*
+# Reglas de categorización APROBADAS: se alimentan de correcciones sobre movimientos reales, así que
+# los matchers son descripciones de comercio que solo existen porque salieron de un estado de cuenta.
+# Pendiente: un config/merchant_rules.example.yml con reglas genéricas, igual que con accounts,
+# para no perder el esquema al ignorar el vivo.
+config/merchant_rules.yml
+config/merchant_rules.yml.bak-*
+# Correcciones del usuario: sin importes ni saldos por diseño, pero el campo 'reason' es texto libre
+# derivado de movimientos reales.
+correcciones_*.json
+*.sqlite
+*.sqlite-*
+*.db
+
+# Sí versionar: código, esquemas, reglas, config no sensible, fixtures ficticios
+!fixtures/
+!fixtures/sanitized/
+!schemas/
+!.claude/
+
+__pycache__/
+*.pyc
+.DS_Store

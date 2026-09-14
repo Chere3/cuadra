@@ -1,0 +1,51 @@
+# Catálogo de categorías (reutiliza tu canon). Editable.
+gasto:
+  - Vivienda (renta/hipoteca)
+  - Servicios (luz/agua/gas)
+  - Internet/Teléfono
+  - Supermercado
+  - Restaurantes/Delivery
+  - Transporte/Gasolina
+  - Auto (seguro/mantenimiento)
+  - Salud/Médico
+  - Gimnasio/Bienestar
+  - Suscripciones
+  - Ropa/Calzado
+  - Cuidado personal
+  - Educación
+  - Entretenimiento
+  - Viajes/Vacaciones
+  - Regalos/Donaciones
+  - Mascotas
+  - Impuestos (predial/tenencia)
+  - Comisiones/Intereses
+  - Gasto hormiga
+  - Imprevistos
+  - Otros gastos
+ingreso:
+  - Sueldo/Salario
+  - Aguinaldo/Prima
+  - Freelance/Honorarios
+  - Negocio propio
+  - Intereses
+  - Dividendos
+  - Renta
+  - Venta
+  - Reembolso
+  - Apoyo/Regalo
+  - Otros ingresos
+transferencia:
+  - Transferencia entre cuentas
+  - Pago de tarjeta
+  - Aportación a inversión
+  - Retiro de inversión
+  - Retiro de efectivo
+  - Depósito en efectivo
+especial:
+  - Por revisar        # categoría por defecto cuando hay incertidumbre
+  - Comisión
+  - Interés
+  - Impuesto
+  - Devolución
+  - Reversión
+  - Contracargo

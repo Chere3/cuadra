@@ -1,0 +1,4 @@
+# Solo para correr la suite de tests (no hace falta para operar la CLI ni el MCP).
+-r requirements.txt
+pytest>=8,<9
+reportlab>=4,<5      # genera PDFs ficticios en los tests de plantillas bancarias

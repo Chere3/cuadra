@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reconciliation.schema.json",
+  "title": "Resultado de conciliación",
+  "type": "object",
+  "required": ["result", "tolerance_minor", "n_transactions"],
+  "properties": {
+    "opening_minor": {"type": ["integer", "null"]},
+    "credits_minor": {"type": "integer"},
+    "debits_minor": {"type": "integer"},
+    "computed_closing_minor": {"type": ["integer", "null"]},
+    "declared_closing_minor": {"type": ["integer", "null"]},
+    "diff_minor": {"type": ["integer", "null"]},
+    "tolerance_minor": {"type": "integer", "minimum": 0},
+    "n_transactions": {"type": "integer", "minimum": 0},
+    "declared_count": {"type": ["integer", "null"]},
+    "coverage_ok": {"type": ["boolean", "integer", "null"]},
+    "result": {"type": "string", "enum": ["OK", "WARNING", "BLOCKED", "REVIEW_REQUIRED"]},
+    "details": {"type": "object"}
+  },
+  "additionalProperties": true
+}

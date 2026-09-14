@@ -1,0 +1,30 @@
+{
+  "$comment": "Configuración ACTIVA de Claude Code para la ingestión. Los hooks refuerzan invariantes (reglas 00/30/50) y NO son opcionales: protegen plantilla Excel, estados originales y base SQLite. La protección de fondo es a nivel de sistema de archivos (ver scripts/hooks/proteger_fs.sh); estos hooks son defensa en profundidad.",
+  "permissions": {
+    "deny": [
+      "Write(./excel/template/**)",
+      "Edit(./excel/template/**)",
+      "Write(./statements/raw/**)",
+      "Edit(./statements/raw/**)",
+      "Write(./data/**)",
+      "Edit(./data/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 scripts/hooks/guard_paths.py" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 scripts/hooks/require_report.py" }
+        ]
+      }
+    ]
+  }
+}

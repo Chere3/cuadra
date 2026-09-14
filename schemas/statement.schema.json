@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "statement.schema.json",
+  "title": "Estado de cuenta",
+  "type": "object",
+  "required": ["statement_id", "account_id", "file_sha256", "original_name", "currency"],
+  "properties": {
+    "statement_id": {"type": "string", "pattern": "^stmt_[0-9a-f]{16}$"},
+    "account_id": {"type": "string"},
+    "file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "original_name": {"type": "string"},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "period_start": {"type": ["string", "null"], "format": "date"},
+    "period_end": {"type": ["string", "null"], "format": "date"},
+    "opening_balance_minor": {"type": ["integer", "null"]},
+    "closing_balance_minor": {"type": ["integer", "null"]},
+    "declared_totals_json": {"type": ["object", "null"]},
+    "extraction_method": {"type": "string",
+      "anyOf": [{"enum": ["csv", "xlsx", "pdf_text", "pdf_no_text", "ocr", "image"]}, {"pattern": "^pdf(?:_ocr|_ebcdic)?_template:[a-z0-9_]+$"}]},
+    "extractor_version": {"type": "string"},
+    "status": {"type": "string",
+      "enum": ["EXTRACTED", "NORMALIZED", "VALIDATED", "REVIEW_REQUIRED",
+               "READY_TO_COMMIT", "COMMITTED", "ROLLED_BACK", "FAILED"]},
+    "supersedes_statement_id": {"type": ["string", "null"]},
+    "superseded_by_statement_id": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,16 @@
+# FIXTURE FICTICIO — no son datos reales
+# account_id: bbva_debito
+# currency: MXN
+# period_start: 2026-06-01
+# period_end: 2026-06-30
+# opening_balance: 10000.00
+# closing_balance: 31600.00
+# declared_credits: 30000.00
+# declared_debits: -8400.00
+# declared_count: 5
+fecha,fecha_cargo,descripcion,monto,saldo,ref
+2026-06-05,2026-06-05,DEPOSITO NOMINA ACME SA,30000.00,40000.00,NOM0605
+2026-06-07,2026-06-07,OXXO TIENDA 1234 GDL,-250.00,39750.00,A1
+2026-06-10,2026-06-10,UBER TRIP HELP.UBER.COM,-150.00,39600.00,A2
+2026-06-15,2026-06-15,SPEI ENVIADO A NU CUENTA,-5000.00,34600.00,SPEI9001
+2026-06-20,2026-06-20,PAGO TARJETA VEXI,-3000.00,31600.00,PAGO7

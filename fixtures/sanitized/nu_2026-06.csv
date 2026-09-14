@@ -1,0 +1,12 @@
+# FIXTURE FICTICIO — no son datos reales
+# account_id: nu_debito
+# currency: MXN
+# period_start: 2026-06-01
+# period_end: 2026-06-30
+# opening_balance: 2000.00
+# closing_balance: 7000.00
+# declared_credits: 5000.00
+# declared_debits: 0.00
+# declared_count: 1
+fecha,descripcion,monto,ref
+2026-06-15,SPEI RECIBIDO DE BBVA BANCOMER,5000.00,SPEI9001R

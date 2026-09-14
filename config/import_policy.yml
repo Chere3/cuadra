@@ -1,0 +1,75 @@
+# Política de importación. Editable.
+
+# Conciliación: diferencia máxima permitida por moneda, en unidades menores (centavos).
+reconciliation:
+  default_tolerance_minor: 0        # F-13: exponente 2 => tolerancia 0; un residuo se audita, no se ignora
+  tolerance_by_currency:
+    MXN: 0
+    USD: 0
+  # Excepción POR CUENTA (precede a la moneda). Solo para emisores cuyo propio documento no cuadra
+  # consigo mismo; cada entrada exige justificación verificada, no una corazonada.
+  tolerance_by_account:
+    # Vexi, estado 2026-01-04..2026-02-03: el documento declara su saldo final en TRES lugares
+    # ("Saldo revolvente al corte", "Saldo total", "Pago para no generar intereses") y los tres
+    # dicen lo mismo, pero la suma de sus propios componentes da 1 centavo menos. Verificado que
+    # NO es nuestra extracción: los cargos extraídos coinciden EXACTOS con sus "Recargas"
+    # declaradas y el pago con sus "Devoluciones"; comisiones, intereses, IVA y planes de pago
+    # están todos en 0.00. El estado anterior del mismo banco cuadró exacto, así que no es un
+    # defecto de la plantilla. Un residuo mayor a 1 centavo sigue bloqueando.
+    vexi_tdc: 1
+    # Nu Cuenta, estado 2026-04-01..2026-04-30: el resumen declara "Gastos $4,293.01" y la suma de
+    # los movimientos que el PROPIO estado imprime da $4,293.00. Verificado que no es nuestra
+    # extracción: se leyeron los 19 renglones del documento, uno por uno, y los "Depósitos"
+    # declarados ($5,542.29) coinciden EXACTOS con la suma de los abonos extraídos; el descuadre
+    # está solo del lado del cargo. Los otros cuatro estados de esta cuenta (feb, mar, may, jun)
+    # cuadran a cero con la misma plantilla. Un residuo mayor a 1 centavo sigue bloqueando.
+    nu_debito: 1
+  require_opening_and_closing: true # si faltan saldos => REVIEW_REQUIRED, no se inventan
+
+# Aprobación.
+# Arranque cuenta-por-cuenta: MODO REVISIÓN (nada entra sin tu 'finance commit').
+# Cuando le tengas confianza, pon auto_commit_if_ok: true para commit automático si concilia OK.
+approval:
+  auto_commit_if_ok: false          # false = revisar y aprobar (dry-run -> preview -> commit)
+  require_approval_on_warning: true # cualquier WARNING exige aprobación explícita
+  block_on:                         # estas condiciones BLOQUEAN el commit (consumidas en services._decide)
+    - reconciliation_blocked
+    - missing_critical_fields       # fecha o importe ausentes/ilegibles
+    - invalid_schema                # falla validación jsonschema (F-03)
+    - account_not_identified
+    - inactive_account              # cuenta desactivada/cerrada (SOL-R2-004)
+    - currency_mismatch             # moneda cuenta/estado inconsistente (SOL-010)
+    - unsupported_currency          # moneda fuera de ISO 4217 soportada (SOL-010)
+    - duplicate_statement
+    - documento_excede_limite       # R5-A-004: documento demasiado grande (anti-DoS)
+
+# Campos dudosos: una CATEGORÍA dudosa puede quedar "Por revisar" sin bloquear;
+# una FECHA o IMPORTE dudoso SÍ bloquea (regla 40).
+doubtful:
+  category_uncertain_blocks: false
+  date_uncertain_blocks: true
+  amount_uncertain_blocks: true
+
+# Transferencias / duplicados.
+transfers:
+  match_window_days: 3              # ventana para emparejar transferencias entre cuentas propias
+  amount_exact: true               # el importe debe coincidir (con signo opuesto)
+
+# Límites anti-DoS (R5-A-004). Un documento degenerado (miles de líneas del mismo importe,
+# PDF de miles de páginas) hacía crecer la ingesta O(n²) sin cota. Estos límites la degradan
+# a REVIEW_REQUIRED (falla seguro) en vez de colgarse.
+limits:
+  max_rows_per_statement: 5000     # filas por documento; si excede => bloquea (no procesa el resto)
+  transfer_bucket_cap: 300         # si >N movimientos comparten importe absoluto, no auto-vincular ese grupo
+
+# Extracción.
+extraction:
+  prefer_native_text: true         # OCR solo si no hay texto nativo
+  ocr_lang: "spa"
+  ocr_min_confidence: 60           # SOL-009: importe de línea con confianza < 60 => dudoso (bloquea)
+
+# Categorización IA (sugerencia; nunca altera fecha/importe/saldo).
+ai_categorization:
+  enabled: false                   # se activa localmente; por defecto off en fixtures
+  min_confidence_to_suggest: 0.6
+  fallback_category: "Por revisar"

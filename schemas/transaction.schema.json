@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transaction.schema.json",
+  "title": "Transacción canónica",
+  "type": "object",
+  "required": ["transaction_id", "account_id", "statement_id", "date_op",
+               "description_raw", "amount_minor", "currency", "sign", "fingerprint"],
+  "properties": {
+    "transaction_id": {"type": "string", "pattern": "^txn_[0-9a-f]{16}$"},
+    "account_id": {"type": "string"},
+    "statement_id": {"type": "string", "pattern": "^stmt_[0-9a-f]{16}$"},
+    "import_id": {"type": ["string", "null"]},
+    "date_op": {"type": "string", "format": "date"},
+    "date_post": {"type": ["string", "null"], "format": "date"},
+    "date_value": {"type": ["string", "null"], "format": "date"},
+    "description_raw": {"type": "string"},
+    "description_norm": {"type": ["string", "null"]},
+    "merchant_norm": {"type": ["string", "null"]},
+    "amount_minor": {"type": "integer", "description": "unidades menores enteras, con signo"},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "sign": {"type": "integer", "enum": [-1, 1]},
+    "type": {"type": ["string", "null"], "enum": ["ingreso", "gasto", "pago_deuda", "transferencia", "comision", "interes", "aportacion_ahorro", "aportacion_inversion", null]},
+    "balance_after_minor": {"type": ["integer", "null"]},
+    "category": {"type": ["string", "null"]},
+    "category_source": {"type": ["string", "null"], "enum": ["rule", "history", "ai", "manual", "none", null]},
+    "review_status": {"type": "string", "enum": ["ok", "por_revisar", "cuarentena"]},
+    "locator": {"type": ["string", "null"]},
+    "bank_ref": {"type": ["string", "null"]},
+    "fingerprint": {"type": "string"},
+    "fx_json": {"type": ["object", "null"],
+      "properties": {
+        "orig_minor": {"type": "integer"}, "orig_ccy": {"type": "string"},
+        "rate": {"type": "string"}, "rate_source": {"type": "string"},
+        "rate_date": {"type": "string"}, "conv_minor": {"type": "integer"}
+      },
+      "required": ["orig_minor", "orig_ccy", "rate", "rate_source", "rate_date", "conv_minor"]
+    },
+    "dup_of": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,50 @@
+name: Nuevo banco o producto
+description: Pide (o propón) una plantilla para un estado de cuenta que cuadra aún no lee.
+title: "[banco] <Banco> · <producto>"
+labels: ["banco", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias. Antes de seguir: **nunca pegues un estado real**. Cambia nombres, cifras y referencias.
+  - type: input
+    id: banco
+    attributes:
+      label: Banco e institución
+      placeholder: "Santander México"
+    validations:
+      required: true
+  - type: dropdown
+    id: producto
+    attributes:
+      label: Producto
+      options: [Débito / nómina, Tarjeta de crédito, Inversión, Préstamo, Otro]
+    validations:
+      required: true
+  - type: dropdown
+    id: formato
+    attributes:
+      label: Formato del estado
+      options: [PDF con texto, PDF escaneado / sin texto, CSV, XLSX, Otro]
+    validations:
+      required: true
+  - type: textarea
+    id: fragmento
+    attributes:
+      label: Fragmento FICTICIO del estado
+      description: Cinco a diez líneas con el mismo formato pero datos inventados. Incluye, si existen, las líneas de saldo inicial y final.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: detalle
+    attributes:
+      label: El detalle que muerde
+      description: Lo que hace raro a este formato (signos, fechas partidas, columnas, diseño que cambia).
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmo
+      options:
+        - label: El fragmento no contiene datos reales de ninguna persona.
+          required: true
