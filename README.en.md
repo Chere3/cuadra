@@ -227,13 +227,14 @@ cropped, not even "just one line".
 
 ## Roadmap
 
-- [ ] More banks: Santander, Banorte, Citibanamex, Banco Azteca, Mercado Pago, Stori, Klar, Hey Banco
-- [ ] OCR in continuous integration
-- [ ] `pyproject.toml` and `pip install cuadra`
-- [ ] Exporters for Actual Budget, Firefly III and Beancount
-- [ ] Categorization rules learned from corrections (today they are explicit on purpose)
+- [ ] More banks: [Santander](https://github.com/Chere3/cuadra/issues/2), [Banorte](https://github.com/Chere3/cuadra/issues/3), [Citibanamex](https://github.com/Chere3/cuadra/issues/4), [Mercado Pago](https://github.com/Chere3/cuadra/issues/5), [Stori / Klar / Hey Banco](https://github.com/Chere3/cuadra/issues/6), [full GBM](https://github.com/Chere3/cuadra/issues/7)
+- [ ] [OCR in continuous integration](https://github.com/Chere3/cuadra/issues/11)
+- [ ] [`pyproject.toml` and `pip install cuadra`](https://github.com/Chere3/cuadra/issues/9)
+- [ ] [Exporters for Actual Budget, Firefly III and Beancount](https://github.com/Chere3/cuadra/issues/10)
+- [ ] [Categorization rules suggested from repeated corrections](https://github.com/Chere3/cuadra/issues/13)
 
-If one of these matters to you, an issue with your concrete case is worth more than a 👍.
+Bank missing? Ask in the [pinned thread](https://github.com/Chere3/cuadra/issues/1). Looking for a place to start? There are
+[issues labeled *good first issue*](https://github.com/Chere3/cuadra/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 ## Privacy
 
